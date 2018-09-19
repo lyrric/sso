@@ -17,13 +17,13 @@ import java.util.UUID;
 public class CommonServiceImpl implements CommonService {
 
     @Resource
-    private StringRedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public JsonResult login(String username, String password) {
         if("admin".equals(username) && "123456".equals(password)){
             String uuid = UUID.randomUUID().toString();
-            redisTemplate.boundValueOps(uuid).set(username);
+            stringRedisTemplate.boundValueOps(uuid).set(username);
             return JsonResult.ok(uuid);
         }
         return JsonResult.fail(400, "用户名或密码错误");
@@ -31,13 +31,13 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public boolean check(String uuid) {
-        return uuid != null && redisTemplate.boundValueOps(uuid).persist();
+        return uuid != null && stringRedisTemplate.boundValueOps(uuid).persist();
     }
 
     @Override
     public void logout(String uuid) {
         if(uuid != null){
-            redisTemplate.delete(uuid);
+            stringRedisTemplate.delete(uuid);
         }
     }
 

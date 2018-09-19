@@ -1,8 +1,14 @@
 server:
   port: 8080
-  url: http://locaohost:8080/check
-  spring:
+spring:
     redis:
       host: localhost
       database: 0
+      port: 6379
+    thymeleaf:
+      suffix: .html
+      mode: LEGACYHTML5
+      enabled: true
+      cache: false
+      check-template-location: true
 

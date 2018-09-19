@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+    <link rel="stylesheet" th:href="|/bootstrap-3.3.7/css/bootstrap.min.css|"  type="text/css" />
+</head>
+<style>
+    .wrapper{
+        padding: 15px;
+        max-width: 800px;
+    }
+    .base-info{
+        background-color: #DFF0D8
+    }
+    .clear{
+        clear: both;
+    }
+    .common-buttom{
+        padding-left: 20px;
+        padding-top: 10px;
+    }
+</style>
+<body>
+<div class="wrapper">
+    <div class="base-info">
+        <input type="hidden" class="form-control" id="callBack" th:value="${callBack}" />
+        <form>
+            <div class="form-group">
+                <label for="username">用户名：</label>
+                <input type="text" class="form-control" id="username" value="admin" placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" class="form-control" id="password" placeholder="密码" value="123456">
+            </div>
+            <div class="clear"></div>
+            <div class="common-buttom" >
+                <button id="loginBtn" class="btn btn-success">登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </form>
+        <br />
+    </div>
+    <div class="clear"></div>
+</body>
+<script th:src="|/js/jquery-3.3.1.min.js|" type="application/javascript"></script>
+<script th:src="|/bootstrap-3.3.7/js/bootstrap.min.js|" type="application/javascript"></script>
+<script type="application/javascript">
+    $('#loginBtn').click(function(){
+        $.ajax({
+            url:'/login',
+            dataType:'json',
+            type:'post',
+            async:false,
+            data:{
+                username:$('#username').val(),
+                password:$('#password').val()
+            },
+            success:function(result){
+                if(result.success){
+                    let uuid = result.data;
+                    let callBack = $('#callBack').val();
+                    if(callBack.indexOf('?') === -1){
+                        callBack+="?uuid=";
+                    }else{
+                        callBack+="&uuid";
+                    }
+                    callBack += uuid;
+                    alert(callBack);
+                    window.location.href = callBack;
+
+                }else{
+                    alert(result.errMsg)
+                }
+            },
+            error:function(){
+                alert('登陆失败');
+            }
+        });
+        return false;
+    });
+</script>
+
+</html>

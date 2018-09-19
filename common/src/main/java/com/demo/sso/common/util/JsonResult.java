@@ -15,7 +15,7 @@ public class JsonResult {
     /**
      * 处理完成后的消息
      */
-    public String message = "";
+    public String errMsg = "";
     /**
      * 处理结果代码
      */
@@ -45,21 +45,21 @@ public class JsonResult {
      * 自定义返回
      *
      * @param statusCode
-     * @param message
+     * @param errMsg
      */
-    public JsonResult(Boolean success, int statusCode, String message) {
+    public JsonResult(Boolean success, int statusCode, String errMsg) {
         this.success = success;
         this.statusCode = statusCode;
-        this.message = message;
+        this.errMsg = errMsg;
     }
 
     /**
      * 自定义返回
      */
-    public JsonResult(Boolean success, int statusCode, String message, Object data) {
+    public JsonResult(Boolean success, int statusCode, String errMsg, Object data) {
         this.success = success;
         this.statusCode = statusCode;
-        this.message = message;
+        this.errMsg = errMsg;
         this.data = data;
     }
 
@@ -72,8 +72,8 @@ public class JsonResult {
         return new JsonResult(data);
     }
 
-    public static JsonResult fail(int status, String message) {
-        return new JsonResult(false, status, message);
+    public static JsonResult fail(int status, String errMsg) {
+        return new JsonResult(false, status, errMsg);
     }
 
 

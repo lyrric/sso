@@ -1,7 +1,13 @@
-server:
-  url: http://locaohost:8080/check
+sso:
+  url: http://localhost:8080/
 spring:
-  redis:
-    host: localhost
-    database: 0
+    redis:
+      host: localhost
+      database: 0
+    thymeleaf:
+      suffix: .html
+      mode: LEGACYHTML5
+      enabled: true
+      cache: false
+      check-template-location: true
 

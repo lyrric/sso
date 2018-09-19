@@ -2,6 +2,7 @@ package com.demo.sso.server.controller;
 
 import com.demo.sso.common.util.JsonResult;
 import com.demo.sso.server.service.CommonService;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -40,9 +41,9 @@ public class CommonController {
      * @return 已登录重定向到之前页面，未登录返回登陆页面
      */
     @GetMapping(value = "/check")
-    public void check(@CookieValue("uuid")String uuid, String callBack, HttpServletResponse response) throws IOException {
+    public void check(@CookieValue(name = "uuid", required = false)String uuid, String callBack, HttpServletResponse response) throws IOException {
         if(!commonService.check(uuid)){
-            response.sendRedirect("/login");
+            response.sendRedirect("/login?callBack="+callBack);
         }else{
             //拼接参数
             callBack +=callBack.indexOf('?') == -1?"?":"&";
@@ -62,7 +63,7 @@ public class CommonController {
     public JsonResult login(String username, String password, HttpServletResponse response){
         JsonResult jsonResult = commonService.login(username, password);
         if(jsonResult.success){
-            Cookie cookie = new Cookie("uuid", jsonResult.getData().toString());
+            response.addCookie(new Cookie("uuid", jsonResult.getData().toString()));
         }
         return jsonResult;
     }
