@@ -1,4 +1,4 @@
-package com.demo.sso.server;
+package com.demo.sso.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author wangxiaodong
  */
 @SpringBootApplication
-public class ServerApplication {
+public class ClientApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(ServerApplication.class, args);
+        SpringApplication.run(ClientApplication.class, args);
     }
 }

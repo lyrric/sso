@@ -11,5 +11,11 @@
 
 	<artifactId>sso.client</artifactId>
 
-
+	<dependencies>
+		<dependency>
+			<groupId>com.demo</groupId>
+			<artifactId>sso.common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

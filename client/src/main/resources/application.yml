@@ -1,0 +1,7 @@
+server:
+  url: http://locaohost:8080/check
+spring:
+  redis:
+    host: localhost
+    database: 0
+

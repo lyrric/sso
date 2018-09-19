@@ -1,0 +1,8 @@
+server:
+  port: 8080
+  url: http://locaohost:8080/check
+  spring:
+    redis:
+      host: localhost
+      database: 0
+
