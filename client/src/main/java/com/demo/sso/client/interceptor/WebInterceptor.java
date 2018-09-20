@@ -33,7 +33,6 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
         System.out.println("---------------------------------------------------------"+ssoUrl);
         //uuid登陆返回请求
         Object uuid = request.getParameter("uuid");
-        //Object uuid = request.getAttribute("uuid");
         if(uuid != null){
             response.addCookie(new Cookie("uuid", uuid.toString()));
         }
@@ -50,7 +49,8 @@ public class WebInterceptor extends HandlerInterceptorAdapter {
                     }
                 }
             }
-            if(uuid == null || !stringRedisTemplate.boundValueOps(uuid.toString()).persist()){
+            //检查UUID如果无效的话重定向到sso尝试获取登陆状态
+            if(uuid == null || !stringRedisTemplate.hasKey(uuid.toString())){
                 String callBack = ssoUrl+"check?callBack="+request.getHeader("referer");
                 System.out.println("callBack="+callBack);
                 response.sendRedirect(callBack);

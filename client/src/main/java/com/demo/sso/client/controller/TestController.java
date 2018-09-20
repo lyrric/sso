@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created on 2018/9/19.
@@ -21,8 +23,8 @@ public class TestController {
 
     @Resource
     private CommonService commonService;
-    @Value("server.url")
-    private String url;
+    @Value("${sso.url}")
+    private String ssoUrl;
 
     @GetMapping(value = "/page1")
     public String page1(String uuid){
@@ -34,5 +36,17 @@ public class TestController {
     public String page2(@CookieValue("uuid")String uuid, Model model){
         model.addAttribute("uuid", uuid);
         return "page2";
+    }
+
+    /**
+     * 退出登陆，重定向到sso logout
+     * @param response
+     * @param request
+     * @throws IOException
+     */
+    @GetMapping(value = "/logout")
+    @LoginRequired
+    public void logout(HttpServletResponse response, HttpServletRequest request) throws IOException {
+        response.sendRedirect(ssoUrl +"logout?callBack="+request.getHeader("referer"));
     }
 }

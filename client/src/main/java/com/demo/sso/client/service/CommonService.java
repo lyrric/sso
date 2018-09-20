@@ -8,4 +8,5 @@ package com.demo.sso.client.service;
 public interface CommonService {
 
     boolean checkLogin(String uuid);
+
 }
