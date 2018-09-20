@@ -2,8 +2,11 @@
 sso完整列子，spring boot+redis
 
 server模块为sso中心服务，登陆，注销，都在此服务上，此服务需要单独启动
+
 client模块为普通的web服务，通过重定向到server的方式来实现sso单点登陆
+
 整个流程为
+
   1.用户访问client1(假设为http://localhost:8081)需要从（http://localhost:8081/page1）登陆的页面url(http://localhost:8081/page2)时，拦截器WebInterceptor会判断cookie中是否有uuid值
   
   2.如果有的话就在redis中检验，是否有效，有效则正常返回
